@@ -1,0 +1,58 @@
+@import "variable";
+@import "mixins";
+
+@import "base";
+@import "header";
+@import "hero";
+@import "home-page";
+@import "breadcrumb";
+@import "sidebar";
+@import "shop-grid";
+@import "shop-details";
+@import "shoping-cart";
+@import "checkout";
+@import "blog";
+@import "blog-sidebar";
+@import "blog-details";
+@import "footer";
+@import "contact";
+@import "responsive";
+
+
+.star_rating {
+    position: relative;
+    display: inline-block;
+    letter-spacing:5px;
+  
+    &:before {
+      display:block;
+      font-size:500%;
+      top:0;
+      left:0;
+      font-family: FontAwesome;
+      content: "\f005\f005\f005\f005\f005";
+      color: #818181;
+      text-shadow: 0 2px darken(#818181,20%);
+      padding-left:5px;
+    }
+    span {
+      position:absolute;
+      top:0;
+      left:0;
+      height:100%;
+      display:block;
+      overflow:hidden;
+      &:before{
+        font-size:500%;
+        font-family: FontAwesome;
+        color: #ffbb00;
+        position: absolute;
+        left: 0;
+        top:0;
+        content:"\f005\f005\f005\f005\f005";
+        text-shadow: 0 1px darken(#ffbb00, 20%);
+        display:block;
+        padding-left:5px;
+      }
+    }
+  }

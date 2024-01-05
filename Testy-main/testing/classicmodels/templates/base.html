@@ -1,0 +1,94 @@
+{%load static%}
+{%load i18n%}
+{%load admin_list%}
+{%load admin_modify%}
+{%load admin_urls%}
+{%load cache%}
+{%load l10n%}
+{%load log%}
+{%load tz%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UET Sport&Fitness Guider</title>
+
+ 
+    
+
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        
+        <link href="{%static 'app/css/bootstrap.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/elegant-icons.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/font-awesome.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/jquery-ui.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/nice-select.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/owl.carousel.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/slicknav.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/style.css' %}" rel='stylesheet'/>
+        <link href="{%static 'css/styles.css' %}" rel='stylesheet'/>
+
+
+        <link href="{% static "admin/css/vendor/select2/select2.css" %}">
+        <link href="{% static "admin/css/vendor/select2/select2.min.css" %}">
+        <link href="{% static "admin/css/autocomplete.css" %}">
+        <link href="{% static "admin/css/base.css" %}">
+        <link href="{% static "admin/css/changelists.css" %}">
+        <link href="{% static "admin/css/dark_mode.css" %}">
+        <link href="{% static "admin/css/dashboard.css" %}">
+        <link href="{% static "admin/css/forms.css" %}">
+        <link href="{% static "admin/css/login.css" %}">
+        <link href="{% static "admin/css/nav_sidebar.css" %}">
+        <link href="{% static "admin/css/responsive_rtl.css" %}">
+        <link href="{% static "admin/css/responsive.css" %}">
+        <link href="{% static "admin/css/rtl.css" %}">
+        <link href="{% static "admin/css/widgets.css" %}">
+  
+
+        
+
+  </head>
+  <body>
+    
+    
+
+
+      
+
+   <!-- <button onclick="myHello()">click here!</button> -->
+
+   
+       <!-- <div class = "container"> -->
+      {%block content-main%}
+     {%endblock%}
+       <!-- </div> -->
+   
+
+        <script src="" async defer></script>
+
+
+
+
+        <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+  </div>
+
+
+  
+
+ 
+
+        {% include 'scripts.html' %}
+
+        {% block scripts %}
+        {% endblock scripts%}    
+  </body>
+</html>

@@ -1,0 +1,377 @@
+{%load static%}
+{%load i18n%}
+{%load admin_list%}
+{%load admin_modify%}
+{%load admin_urls%}
+{%load cache%}
+{%load l10n%}
+{%load log%}
+{%load tz%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UET Sport&Fitness Guider</title>
+
+ 
+    
+
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        
+        <link href="{%static 'app/css/bootstrap.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/elegant-icons.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/font-awesome.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/jquery-ui.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/nice-select.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/owl.carousel.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/slicknav.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/style.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/styles.css' %}" rel='stylesheet'/>
+
+
+        <link href="{% static "admin/css/vendor/select2/select2.css" %}">
+        <link href="{% static "admin/css/vendor/select2/select2.min.css" %}">
+        <link href="{% static "admin/css/autocomplete.css" %}">
+        <link href="{% static "admin/css/base.css" %}">
+        <link href="{% static "admin/css/changelists.css" %}">
+        <link href="{% static "admin/css/dark_mode.css" %}">
+        <link href="{% static "admin/css/dashboard.css" %}">
+        <link href="{% static "admin/css/forms.css" %}">
+        <link href="{% static "admin/css/login.css" %}">
+        <link href="{% static "admin/css/nav_sidebar.css" %}">
+        <link href="{% static "admin/css/responsive_rtl.css" %}">
+        <link href="{% static "admin/css/responsive.css" %}">
+        <link href="{% static "admin/css/rtl.css" %}">
+        <link href="{% static "admin/css/widgets.css" %}">
+  
+
+        <script>
+            function myHellow() {
+                alert("Hello");
+            }
+
+            function taol() {
+                alert("mikasa");
+            }
+
+            function arminAlert() {
+                // Get the content from the h4 element
+                var eren = document.getElementById("input");
+                var mikasa = eren.textContent;
+            
+                // Alert the content
+                alert(mikasa);
+            }
+            function Alert() {
+                // Get the content from the h4 element
+                var eren = document.getElementById("input");
+                var mikasa = eren.textContent;
+            
+                // Alert the content
+                alert(mikasa);
+            }
+            
+
+        </script>
+        
+
+  </head>
+  <body>
+
+
+      <!-- Page Preloder -->
+      <div id="preloder">
+        <div class="loader"></div>
+    </div>
+  <!-- Header Section Begin -->
+  <header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> vnu_hkp@vnu.edu.vn</li>
+                            <li>Our website project for Database Module</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="https://github.com/vnu-hkp" target="_blank"><i class="fa fa-github"></i></a>
+                        </div>
+                        <div class="header__top__right__language">
+                            <img src="{% static "img/language.png" %}" alt="language flag">
+                            <div>English</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="https://translate.google.com/?hl=vi&sl=es&tl=vi&op=translate" target="_blank">Spanish</a></li>
+                                <li><a href="https://translate.google.com/?hl=vi" target="_blank">English</a></li>
+                               
+                            </ul>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a href="http://127.0.0.1:8000/admin/" target="_blank"><i class="fa fa-user"></i>Admin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="{%url 'homes' customer.person_id%}"><img src="{% static "img/logi.png" %}" alt="logo"></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu" >
+                    <ul style="width: 650px">
+                        <li><a href="{%url 'homes' customer.person_id%}">Home</a></li>
+                        <li class="active"><a href="{%url 'show_all_product' customer.person_id 1%}">Shop</a></li>
+                        <li><a href="{%url 'bank' customer.person_id%}">User</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="{%url 'bank' customer.person_id%}">Back Account</a></li>
+                                <li><a href="{%url 'all_order' customer.person_id%}" >Order</a></li>
+                                <li><a href="{% url 'order_details' customer.person_id%}">Cart</a></li>
+                                <li><a href="{% url 'favorite_list' customer.person_id  %}">Favourite</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="http://127.0.0.1:8000/admin/">Developer</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="http://127.0.0.1:8000/admin/">Admin</a></li>
+                                <li><a href="{% url 'show_revenue' customer.person_id%}">Revenue</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'blog' customer.person_id%}">Blog</a></li>
+                        <li><a href="{%url 'contact' customer.person_id%}">Contact</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="{% url 'favorite_list' customer.person_id  %}"><i class="fa fa-heart"></i> <span>{{fav_count}}</span></a></li>
+                        <li><a href="{% url 'order_details' customer.person_id%}" ><i class="fa fa-shopping-bag"></i> <span>{{num}}</span></a></li>
+                    </ul>
+                    <div class="header__cart__price">total: <span>{{total}} VND</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+  </header>
+  <!-- Header Section End -->
+  
+  <!-- Hero Section Begin -->
+  <section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="{%url 'show_all_product' customer.person_id 1%}">All Products</a></li>
+                        <li><a href="{%url 'products_by_category' 'Supplements' customer.person_id 1%}">Supplements</a></li>
+                        <li><a href="{%url 'products_by_category' 'Clothes' customer.person_id 1%}">Clothes</a></li>
+                        <li><a href="{%url 'products_by_category' 'Accessories' customer.person_id 1%}">Accessories</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form method="POST" action = "{%url 'show_all_product' customer.person_id 1%}">
+                            <div class="hero__search__categories">
+                                All Categories
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+65 11.188.888</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!-- Hero Section End -->
+  
+     <!-- Breadcrumb Section Begin -->
+     <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-12 text-center">
+                  <div class="breadcrumb__text">
+                      <h2>Your Orders</h2>
+                      <div class="breadcrumb__option">
+                          <a href="{%url 'homes' customer.person_id%}">Home</a>
+                          <span>Orders</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+<br><br><br>
+
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="shoping__cart__table">
+                  <table>
+                      <thead>
+                          <tr>
+                              <th></th>
+                              <th class="shoping__product">Products</th>
+                              <th>Price</th>
+                              <th>Quantity</th>
+                              <th>Total</th>
+                              <th><th>
+                            
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in order_details %}
+                          <tr>
+                            <td style="width: 40px;"><span style="font-weight: bolder; font-size: 15px; margin-right: 50px;">{{forloop.counter}}.</span></td>
+                            <td class="shoping__cart__item" style="width: 500px; display: flex; flex-direction: row; align-item: center; justify-content: flex-start">
+                                <div style="margin-top: auto; margin-bottom: auto">
+                                    <img style="width: 110px; height: 110px;" src={{item.product.productImage.url}} alt="product img">
+                                        </div>
+                                        <div style="margin-top: auto; margin-bottom: auto; margin-left: 20px; margin-right: 20px">
+                                   <span style="font-weight: bolder;">{{item.product.pro_name}}</span>
+                                        </div>
+                              </td>
+                              <td class="shoping__cart__price" style=" color: green; font-weight: bolder; letter-spacing: 0.6px; width: 200px ">
+                                
+                                {%if item.product.afterSalePrice != 0%}
+                                 <div>{{item.product.afterSalePrice}} VND</div>
+                                 {%else%}
+                                 <div>{{item.product.sellPrice}} VND</div>
+
+                                 {%endif%}
+                                
+
+                              </td>
+                              <td class="shoping__cart__quantity" >
+                                  {{item.amount}}
+                              </td>
+                              <td class="shoping__cart__total" style=" color: tomato; font-weight: bolder; letter-spacing: 0.6px; width: 200px">
+                                {%if item.product.afterSalePrice != 0%}
+                                  {{item.get_amountAf}} VND
+                                  {%else%}
+                                  {{item.get_amount}} VND
+                                  {%endif%}
+                              </td>
+
+                              {%if order.shippingStatus == 'Shipped'%}
+                              <td>
+
+
+                                <a href="{% url 'ship' customer.person_id item.get_pro_id%}" class="btn btn-warning" style="margin-left: 50px; font-size: 10px"><h4 style="font-size: 18px; font-weight: bold; font-style: italic">Review</h4></a>
+                            
+                                            
+                              </td>
+                                {%endif%}
+
+                              
+                             
+                          </tr>
+
+                          {% empty %}
+                              <tr>
+                                <td colspan= 3> You have not added any items yet.</td>
+                              </tr>
+                          {%endfor%}
+                          
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          
+        <div class="col-lg-12" >
+          <div class="shoping__cart__btns">
+              <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+              <div class="col-lg-6" style="float: right; margin-top: -50px; margin-right: -13px">
+                <div class="shoping__checkout">
+                    <h5>Order Info</h5>
+                    <ul>
+                      {% if order.totalAmount != 0 %}
+                        <li>Total <span>{{order.totalAmount}} VND</span></li>
+      
+                        {%endif%}
+                        <li style="border-bottom: none; margin-bottom: 5px">Shipper</li>
+                        <div style="margin-bottom: 5px">Name<span style="float: right">{{order.shipper.personName}}</span></div>
+                        <div style="margin-bottom: 5px">Delivery<span style="float: right">{{order.shipper.workplace}}</span></div>
+                        <div style="margin-bottom: 5px">Phone<span style="float: right">{{order.shipper.phoneNumber}}</span></div>
+                        <div style="margin-bottom: 5px">License plate<span style="float: right">{{order.shipper.license_plate}}</span></div>
+                    </ul>
+                    {%if order.shippingStatus == 'In Transit'%}
+                    <a href="{% url 'mark_as_shipped' customer.person_id order.order_id%}" class="primary-btn" style="background-color: #EDBB0E;">PACKAGE RECEIVED</a>
+                    {%endif%}
+                </div>
+            </div>
+      
+          </div>
+      </div>
+       
+
+      
+          
+      </div>
+  </div>
+</section>
+<!-- Shoping Cart Section End -->
+
+
+
+{% include 'footer.html' %}
+
+  
+
+<script src="" async defer></script>
+
+{% include 'scripts.html' %}
+
+{% block scripts %}
+{% endblock scripts%}     
+
+</body>
+</html>

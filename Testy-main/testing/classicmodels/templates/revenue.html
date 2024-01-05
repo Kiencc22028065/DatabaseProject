@@ -1,0 +1,611 @@
+{%load static%}
+{%load i18n%}
+{%load admin_list%}
+{%load admin_modify%}
+{%load admin_urls%}
+{%load cache%}
+{%load l10n%}
+{%load log%}
+{%load tz%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UET Sport&Fitness Guider</title>
+
+ 
+    
+
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        
+        <link href="{%static 'app/css/bootstrap.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/elegant-icons.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/font-awesome.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/jquery-ui.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/nice-select.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/owl.carousel.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/slicknav.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/style.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/styles.css' %}" rel='stylesheet'/>
+
+
+        <link href="{% static "admin/css/vendor/select2/select2.css" %}">
+        <link href="{% static "admin/css/vendor/select2/select2.min.css" %}">
+        <link href="{% static "admin/css/autocomplete.css" %}">
+        <link href="{% static "admin/css/base.css" %}">
+        <link href="{% static "admin/css/changelists.css" %}">
+        <link href="{% static "admin/css/dark_mode.css" %}">
+        <link href="{% static "admin/css/dashboard.css" %}">
+        <link href="{% static "admin/css/forms.css" %}">
+        <link href="{% static "admin/css/login.css" %}">
+        <link href="{% static "admin/css/nav_sidebar.css" %}">
+        <link href="{% static "admin/css/responsive_rtl.css" %}">
+        <link href="{% static "admin/css/responsive.css" %}">
+        <link href="{% static "admin/css/rtl.css" %}">
+        <link href="{% static "admin/css/widgets.css" %}">
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+        </script>
+  
+
+        <script>
+            function myHellow() {
+                alert("Hello");
+            }
+
+            function taol() {
+                alert("mikasa");
+            }
+
+            function arminAlert() {
+                // Get the content from the h4 element
+                var eren = document.getElementById("input");
+                var mikasa = eren.textContent;
+            
+                // Alert the content
+                alert(mikasa);
+            }
+            function Alert() {
+                // Get the content from the h4 element
+                var eren = document.getElementById("input");
+                var mikasa = eren.textContent;
+            
+                // Alert the content
+                alert(mikasa);
+            }
+            
+
+        </script>
+
+        <style>
+
+
+
+           
+
+            .flex-revenue {
+                display: flex;
+                flex-direction: row;
+      
+                justify-content: center;
+                text-align: center;
+                column-gap: 50px
+
+            }
+
+            .flex-revenue > div {
+                border-radius: 10px;
+                width: 550px;
+                height: 140px;
+                text-align: center;
+                
+
+
+            }
+
+
+            .flex-toprev {
+                display: flex;
+                flex-direction: row;
+               
+                justify-content: center;
+                text-align: center;
+                column-gap: 50px
+
+            }
+
+            .flex-toprev > div {
+                border: 1px solid black;
+                width: 500px;
+                height: 280px;
+                text-align: center;
+
+            }
+
+            .flex-for-u {
+                display: flex;
+                flex-direction: row;
+                text-align: center;
+                padding-left: 10px;
+                padding-right: 10px;
+
+            }
+
+            .starry i {
+                color: #EDBB0E;
+            }
+        </style>
+        
+
+  </head>
+  <body>
+
+
+    
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+  </div>
+
+
+  <!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> vnu_hkp@vnu.edu.vn</li>
+                            <li>Our website project for Database Module</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="https://github.com/vnu-hkp" target="_blank"><i class="fa fa-github"></i></a>
+                        </div>
+                        <div class="header__top__right__language">
+                            <img src="{% static "img/language.png" %}" alt="language flag">
+                            <div>English</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="https://translate.google.com/?hl=vi&sl=es&tl=vi&op=translate" target="_blank">Spanish</a></li>
+                                <li><a href="https://translate.google.com/?hl=vi" target="_blank">English</a></li>
+                               
+                            </ul>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a href="http://127.0.0.1:8000/admin/" target="_blank"><i class="fa fa-user"></i>Admin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="{%url 'homes' customer.person_id%}"><img src="{% static "img/logi.png" %}" alt="logo"></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu" >
+                    <ul style="width: 650px">
+                        <li><a href="{%url 'homes' customer.person_id%}">Home</a></li>
+                        <li class="active"><a href="{%url 'show_all_product' customer.person_id 1%}">Shop</a></li>
+                        <li><a href="{%url 'bank' customer.person_id%}">User</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="{%url 'bank' customer.person_id%}">Back Account</a></li>
+                                <li><a href="{%url 'all_order' customer.person_id%}" >Order</a></li>
+                                <li><a href="{% url 'order_details' customer.person_id%}">Cart</a></li>
+                                <li><a href="{% url 'favorite_list' customer.person_id  %}">Favourite</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="http://127.0.0.1:8000/admin/">Developer</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="http://127.0.0.1:8000/admin/">Admin</a></li>
+                                <li><a href="{% url 'show_revenue' customer.person_id%}">Revenue</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'blog' customer.person_id%}">Blog</a></li>
+                        <li><a href="{%url 'contact' customer.person_id%}">Contact</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="{% url 'favorite_list' customer.person_id  %}"><i class="fa fa-heart"></i> <span>{{fav_count}}</span></a></li>
+                        <li><a href="{% url 'order_details' customer.person_id%}" ><i class="fa fa-shopping-bag"></i> <span>{{num}}</span></a></li>
+                    </ul>
+                    <div class="header__cart__price">total: <span>{{total}} VND</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+  </header>
+  <!-- Header Section End -->
+  
+  <!-- Hero Section Begin -->
+  <section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="{%url 'show_all_product' customer.person_id 1%}">All Products</a></li>
+                        <li><a href="{%url 'products_by_category' 'Supplements' customer.person_id 1%}">Supplements</a></li>
+                        <li><a href="{%url 'products_by_category' 'Clothes' customer.person_id 1%}">Clothes</a></li>
+                        <li><a href="{%url 'products_by_category' 'Accessories' customer.person_id 1%}">Accessories</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form method="POST" action = "{%url 'show_all_product' customer.person_id 1%}">
+                            <div class="hero__search__categories">
+                                All Categories
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+65 11.188.888</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!-- Hero Section End -->
+
+ <!-- Breadcrumb Section Begin -->
+ <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <div class="breadcrumb__text">
+                  <h2>Statistics</h2>
+                  <div class="breadcrumb__option">
+                      <a href="{%url 'homes' customer.person_id%}">Home</a>
+                      <span>Revenue</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+
+<div style="background-color: #FFFFFF">
+
+<br><br><br>
+<div>
+<div class="flex-revenue">
+    <div style="background-color: #12C2F9;border: 3px solid #1e738d;">
+        <div style="font-size: 25px; margin-top: 15px; ">Total Revenue</div>
+
+        <div style="font-size: 40px; margin-top: 10px">{%for rev in revenue%}
+            {{rev.revenue}} VND
+            {%endfor%} </div>
+    </div> 
+
+    <div style="background-color: #24B720; border: 3px solid #1d7a1a;">
+        <div style="font-size: 25px; margin-top: 15px">Total Profit</div>
+
+        <div style="font-size: 40px; margin-top: 10px"> 
+            {%for prof in profit%}
+            {{prof.profit}} VND
+            {%endfor%} </div>   
+
+
+    </div> 
+
+</div>
+<br><br><br>
+<canvas id="myChart" style=" margin-left: aotu; margin-right: auto;padding-left: 200px; padding-right: 200px; max-height: 700px"  width="600" height="200"></canvas>
+<br><br>
+<div style="border: 3px solid #AAAAAA; border-radius: 10px; background-color: #DDDDDD; width: 800px; height: 190px; margin-top: 50px;margin-left: auto; margin-right: auto">
+    <div style="font-size: 30px; margin-top: 15px; text-align: center">Highest Month Revenue</div>
+
+
+
+    <div style="font-size: 30px; text-align: center; color: #EDBE0B; font-weight: bolder;margin-top: 0px"> {%for rev in best%}
+        {%for item in list%}
+            {%if rev.month == forloop.counter%}
+                {{item.1}}
+                {%endif%}
+        {%endfor%}
+{%endfor%}
+</div>
+
+
+<div style="font-size: 40px; text-align: center; color: green;margin-top: 0px">{%for rev in best%}
+    {{rev.best}} VND
+{%endfor%}
+</div>
+</div>
+
+
+<br><br><br>
+
+
+
+<div class="flex-toprev">
+    <div style="border: 3px solid #EDBB0E; border-radius: 10px"><br>
+        {%for pro in bestProd%}
+
+        <div style="font-size: 30px"><i class="fa fa-star" style="color: #EDBE0B"></i> Best-Seller <i class="fa fa-star" style="color: #EDBE0B"></i></div>
+
+  <br>
+        <div class="flex-for-u"> 
+                <img src="{{pro.productImage.url}}" style="width: 120px; height: 120px; border-radius: 10px; border: 3px solid #EDBE0B">
+           
+             <span>
+              
+                  <h4 style = "margin-top: 10px; margin-left:15px">{{pro.pro_name}}</h4>
+
+                  <p> {%if pro.afterSalePrice != 0 %} 
+                    <div style="color: red;margin-top: -10px" >{{pro.afterSalePrice}} VND</div>
+                    
+                    <div style="font-weight: light;margin-top: -5px; text-decoration: line-through; font-style: italic; color: gray; opacity: 0.5; font-size: 0.9em">{{pro.sellPrice}} VND</div>
+
+                    {%else%}
+
+                    <div style=" color: green; text-align: center">{{pro.sellPrice}} VND</div>
+                    {%endif%}</p>
+
+
+                    <div class"starry">
+
+                        {%if pro.overallRating == 5%}
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+
+
+                        {%elif pro.overallRating == 4%}
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" ></i>
+
+                        {%elif pro.overallRating == 3%}
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+
+                        {%elif pro.overallRating == 2%}
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                    
+
+                        {%elif pro.overallRating == 1%}
+                        <i class="fa fa-star" style="color: #EDBB0E"></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+
+                        {%else%}
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                        <i class="fa fa-star" ></i>
+                        {%endif%}
+
+                    </div>
+
+                  <p style="margin-top: 20px">Quantity Sold: <span style="color: green; font-size: 30px; font-weight: bolder; padding-left: 10px; ">   {{pro.quantitySold}} </span>
+                </p>
+            </span>
+        </div>
+          {%endfor%}
+    </div> 
+
+    <div style="border: 3px solid #EDBB0E; border-radius: 10px"><br>
+        {%for cus in bestCustomer%}
+         
+                <div style="font-size: 30px"><i class="fa fa-star" style="color: #EDBE0B"></i> Best Customer <i class="fa fa-star" style="color: #EDBE0B"></i></div>
+                
+                  <h4 style="margin-top: 10px">
+
+                    {%if cus.gender == "Male"%} 
+
+                    Mr.
+
+                    {%else%} 
+                    Mrs.
+                    {%endif%}
+                    {{cus.name}} </h4>
+                  <p style="margin-top: 3px; letter-spacing: 0.3px">(ID: {{cus.id}})  </p>
+
+                  <p style="letter-spacing: 0.3px; margin-top: -10px">Phone: {{customer.phoneNumber}} </p>
+
+                  <p style="letter-spacing: 0.3px;margin-top: -10px">Email: {{customer.email}}</p>
+                  <p style="margin-top: 20px">Amount:    <span style="color: green; font-size: 30px; font-weight: bolder; padding-left: 10px; ">   {{cus.best_customer_amount}} VND</span> </p>
+                </p>
+        
+           
+          {%endfor%}
+
+    </div> 
+
+</div>
+<br><br><br><br>
+
+
+
+</div>
+</div>
+
+
+<div id = "jan" hidden> {{jan}} </div>
+<div id = "feb" hidden> {{feb}} </div>
+<div id = "mar" hidden> {{mar}} </div>
+<div id = "apr" hidden> {{apr}} </div>
+<div id = "may" hidden> {{may}} </div>
+<div id = "jun" hidden> {{jun}} </div>
+<div id = "jul" hidden> {{jul}} </div>
+<div id = "aug" hidden> {{aug}} </div>
+<div id = "sep" hidden> {{sep}} </div>
+<div id = "oct" hidden> {{oct}}</div>
+<div id = "nov" hidden> {{nov}} </div>
+<div id = "dec" hidden> {{dec}} </div>
+
+
+<script>
+  var jan = document.getElementById('jan').textContent;
+  var feb = document.getElementById('feb').textContent;
+  var mar = document.getElementById('mar').textContent;
+  var apr = document.getElementById('apr').textContent;
+  var may = document.getElementById('may').textContent;
+  var jun = document.getElementById('jun').textContent;
+  var jul = document.getElementById('jul').textContent;
+  var aug = document.getElementById('aug').textContent;
+  var sep = document.getElementById('sep').textContent;
+  var oct =document.getElementById('oct').textContent;
+  var nov =document.getElementById('nov').textContent;
+  var dec =document.getElementById('dec').textContent;
+  
+  
+  console.log(jan);
+  console.log(feb);
+  console.log(mar);
+  console.log(apr);
+  console.log(may);
+  console.log(jun);
+  console.log(jul);
+  console.log(aug);
+  console.log(sep);
+  console.log(oct);
+  console.log(nov);
+  console.log(dec);
+  
+  var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var yValues = [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec];
+  var barColors = ["red", "green","blue","orange","brown", "red", "green","blue","orange","brown", "cyan", "tomato"];
+  
+  var yValuesInMillions = yValues.map(function(value) {
+  return value / 1000000; // Dividing by 1,000,000 to get values in millions
+  });
+  
+  new Chart("myChart", {
+  type: "bar",
+  data: {
+  labels: xValues,
+  datasets: [{
+     
+      data: yValuesInMillions,
+      barPercentage: 0.5,
+        barThickness: 70,
+      
+       
+        backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)',
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)'
+      
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)',
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      
+    ],
+    borderWidth: 1,
+
+  }]
+  },
+  options: {
+  legend: {display: false},
+  title: {
+      display: true,
+      text: "Revenue in 2023"
+  }
+  }
+  });
+  </script>
+  
+  
+  
+
+ 
+
+  {%include 'footer.html'%}
+
+  <script src="" async defer></script>
+
+  {% include 'scripts.html' %}
+
+  {% block scripts %}
+  {% endblock scripts%}  
+
+
+
+
+</body>
+</html>

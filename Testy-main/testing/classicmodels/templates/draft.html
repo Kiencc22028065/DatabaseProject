@@ -1,0 +1,83 @@
+{%for prod in newestProduct1st%}
+                                <a href="{%url 'each_product' customer.person_id prod.pro_id%}" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src={{prod.productImage.url}} alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>{{prod.pro_name}}jjjj</h6>
+                                        {%if prod.afterSalePrice == prod.sellPrice%}
+                                            <span>{{prod.afterSalePrice}}</span>
+                                        {%else%}
+
+
+                                        <span>{{prod.afterSalePrice}}</span>
+                                        <span style="text-decoration: line-through;
+                                        font-size: 14px;
+                                        font-style: italic;
+                                        font-weight: 400; color: red;" >{{prod.sellPrice}}</span>
+
+                                        {%endif%}
+                                    </div>
+                                </a>
+                               {%endfor%}
+
+
+
+
+
+<script>
+var jan = document.getElementById('jan').textContent;
+var feb = document.getElementById('feb').textContent;
+var mar = document.getElementById('mar').textContent;
+var apr = document.getElementById('apr').textContent;
+var may = document.getElementById('may').textContent;
+var jun = document.getElementById('jun').textContent;
+var jul = document.getElementById('jul').textContent;
+var aug = document.getElementById('aug').textContent;
+var sep = document.getElementById('sep').textContent;
+var oct =document.getElementById('oct').textContent;
+var nov =document.getElementById('nov').textContent;
+var dec =document.getElementById('dec').textContent;
+
+
+console.log(jan);
+console.log(feb);
+console.log(mar);
+console.log(apr);
+console.log(may);
+console.log(jun);
+console.log(jul);
+console.log(aug);
+console.log(sep);
+console.log(oct);
+console.log(nov);
+console.log(dec);
+
+var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var yValues = [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec];
+var barColors = ["red", "green","blue","orange","brown", "red", "green","blue","orange","brown", "cyan", "tomato"];
+
+var yValuesInMillions = yValues.map(function(value) {
+return value / 1000000; // Dividing by 1,000,000 to get values in millions
+});
+
+new Chart("myChart", {
+type: "bar",
+data: {
+labels: xValues,
+datasets: [{
+    backgroundColor: barColors,
+    data: yValuesInMillions
+}]
+},
+options: {
+legend: {display: false},
+title: {
+    display: true,
+    text: "World Wine Production 2018"
+}
+}
+});
+</script>
+
+

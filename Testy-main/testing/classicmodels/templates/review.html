@@ -1,0 +1,335 @@
+{%load static%}
+{%load i18n%}
+{%load admin_list%}
+{%load admin_modify%}
+{%load admin_urls%}
+{%load cache%}
+{%load l10n%}
+{%load log%}
+{%load tz%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UET Sport&Fitness Guider</title>
+
+ 
+    
+
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        
+        <link href="{%static 'app/css/bootstrap.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/elegant-icons.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/font-awesome.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/jquery-ui.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/nice-select.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/owl.carousel.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/slicknav.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/style.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/styles.css' %}" rel='stylesheet'/>
+
+
+        <link href="{% static "admin/css/vendor/select2/select2.css" %}">
+        <link href="{% static "admin/css/vendor/select2/select2.min.css" %}">
+        <link href="{% static "admin/css/autocomplete.css" %}">
+        <link href="{% static "admin/css/base.css" %}">
+        <link href="{% static "admin/css/changelists.css" %}">
+        <link href="{% static "admin/css/dark_mode.css" %}">
+        <link href="{% static "admin/css/dashboard.css" %}">
+        <link href="{% static "admin/css/forms.css" %}">
+        <link href="{% static "admin/css/login.css" %}">
+        <link href="{% static "admin/css/nav_sidebar.css" %}">
+        <link href="{% static "admin/css/responsive_rtl.css" %}">
+        <link href="{% static "admin/css/responsive.css" %}">
+        <link href="{% static "admin/css/rtl.css" %}">
+        <link href="{% static "admin/css/widgets.css" %}">
+
+        <style>
+            .colorstar {
+
+            }
+
+            .colorstar i {
+                color: #EDBB0E;
+            }
+
+        </style>
+  
+
+        
+
+  </head>
+  <body>
+
+
+    
+    <!-- Page Preloder -->
+    <div id="preloder">
+      <div class="loader"></div>
+  </div>
+
+  
+
+ <!-- Header Section Begin -->
+ <header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> vnu_hkp@vnu.edu.vn</li>
+                            <li>Our website project for Database Module</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="https://github.com/vnu-hkp" target="_blank"><i class="fa fa-github"></i></a>
+                        </div>
+                        <div class="header__top__right__language">
+                            <img src="{% static "img/language.png" %}" alt="language flag">
+                            <div>English</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="https://translate.google.com/?hl=vi&sl=es&tl=vi&op=translate" target="_blank">Spanish</a></li>
+                                <li><a href="https://translate.google.com/?hl=vi" target="_blank">English</a></li>
+                               
+                            </ul>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a href="http://127.0.0.1:8000/admin/" target="_blank"><i class="fa fa-user"></i>Admin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="{%url 'homes' customer.person_id%}"><img src="{% static "img/logi.png" %}" alt="logo"></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu" >
+                    <ul style="width: 650px">
+                        <li><a href="{%url 'homes' customer.person_id%}">Home</a></li>
+                        <li class="active"><a href="{%url 'show_all_product' customer.person_id 1%}">Shop</a></li>
+                        <li><a href="{%url 'bank' customer.person_id%}">User</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="{%url 'bank' customer.person_id%}">Back Account</a></li>
+                                <li><a href="{%url 'all_order' customer.person_id%}" >Order</a></li>
+                                <li><a href="{% url 'order_details' customer.person_id%}">Cart</a></li>
+                                <li><a href="{% url 'favorite_list' customer.person_id  %}">Favourite</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="http://127.0.0.1:8000/admin/">Developer</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="http://127.0.0.1:8000/admin/">Admin</a></li>
+                                <li><a href="{% url 'show_revenue' customer.person_id%}">Revenue</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'blog' customer.person_id%}">Blog</a></li>
+                        <li><a href="{%url 'contact' customer.person_id%}">Contact</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="{% url 'favorite_list' customer.person_id  %}"><i class="fa fa-heart"></i> <span>{{fav_count}}</span></a></li>
+                        <li><a href="{% url 'order_details' customer.person_id%}" ><i class="fa fa-shopping-bag"></i> <span>{{num}}</span></a></li>
+                    </ul>
+                    <div class="header__cart__price">total: <span>{{total}} VND</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+  </header>
+  <!-- Header Section End -->
+  
+  <!-- Hero Section Begin -->
+  <section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="{%url 'show_all_product' customer.person_id 1%}">All Products</a></li>
+                        <li><a href="{%url 'products_by_category' 'Supplements' customer.person_id 1%}">Supplements</a></li>
+                        <li><a href="{%url 'products_by_category' 'Clothes' customer.person_id 1%}">Clothes</a></li>
+                        <li><a href="{%url 'products_by_category' 'Accessories' customer.person_id 1%}">Accessories</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form method="POST" action = "{%url 'show_all_product' customer.person_id 1%}">
+                            <div class="hero__search__categories">
+                                All Categories
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+65 11.188.888</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!-- Hero Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <div class="breadcrumb__text">
+                  <h2>Rate our Products</h2>
+                  <div class="breadcrumb__option">
+                      <a href="{%url 'homes' customer.person_id%}">Home</a>
+                      <span>Review</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<div style="background-color: #EEEEEE; height:65%">
+
+          <div class="card mb-3" style="width: 640px; border: none; border-radius: 0px;margin-left: auto; margin-right: auto;padding-top: 50px;background-color: #EEEEEE">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{product.productImage.url}}" class="img-fluid rounded-start" style=" border: 2px solid #AAAAAA; border-radius: 5px" alt="rvimg">
+              </div>
+              <div class="col-md-8" >
+                <div class="card-body" style="margin-top: -: auto; margin-bottom: auto" >
+                  <h5  class="card-title" style="font-size: 27px; font-weight: bolder; letter-spacing: 0.7px">{{product.pro_name}}</h5>
+
+
+
+                  {%if product.afterSalePrice != 0%}
+                  <p class="card-text" style="color: red; font-size: 20px; font-weight: bolder; letter-spacing: 0.8px">{{product.afterSalePrice}} VND</p>
+                  <p class="card-text" style="color: gray; text-decoration: line-through; font-size: 15px;font-weight: normal; margin-top: -10px">{{product.sellPrice}} VND</p>
+
+                  {%else%}
+                  <p class="card-text" style="color: green; font-size: 20px; font-weight: bolder; letter-spacing: 0.8px">{{product.sellPrice}} VND</p>
+
+                  {%endif%}
+
+
+
+<div class="colorstar">
+                  <p class="card-text">{%if product.overallRating == 5%}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+
+
+                    {%elif product.overallRating == 4%}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+
+                    {%elif product.overallRating == 3%}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+
+                    {%elif product.overallRating == 2%}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                
+
+                    {%elif product.overallRating == 1%}
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+
+                    {%else%}
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    <i class="fa fa-star" style="color: black"></i>
+                    {%endif%}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <form method="POST" action = "{%url 'ship' customer.person_id product.pro_id%}" > 
+              <!--GET là để lấy thông tin, POST là để lưu thông tin-->
+              {% csrf_token %}
+          
+              {{form.as_p}}
+              <br><br>
+              <button type="submit" class="btn btn-secondary" style="">Post</button>
+          
+          
+          </form>
+          </div>
+        </div>
+
+
+    {% include 'footer.html'%}
+  
+
+    <script src="" async defer></script>
+
+    {% include 'scripts.html' %}
+
+    {% block scripts %}
+    {% endblock scripts%}  
+      </body>
+    </html>

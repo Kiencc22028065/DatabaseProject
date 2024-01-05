@@ -1,0 +1,511 @@
+{%load static%}
+{%load i18n%}
+{%load admin_list%}
+{%load admin_modify%}
+{%load admin_urls%}
+{%load cache%}
+{%load l10n%}
+{%load log%}
+{%load tz%}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UET Sport&Fitness Guider</title>
+
+ 
+    
+
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        
+        <link href="{%static 'app/css/bootstrap.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/elegant-icons.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/font-awesome.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/jquery-ui.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/nice-select.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/owl.carousel.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/slicknav.min.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/style.css' %}" rel='stylesheet'/>
+        <link href="{%static 'app/css/styles.css' %}" rel='stylesheet'/>
+
+
+        <link href="{% static "admin/css/vendor/select2/select2.css" %}">
+        <link href="{% static "admin/css/vendor/select2/select2.min.css" %}">
+        <link href="{% static "admin/css/autocomplete.css" %}">
+        <link href="{% static "admin/css/base.css" %}">
+        <link href="{% static "admin/css/changelists.css" %}">
+        <link href="{% static "admin/css/dark_mode.css" %}">
+        <link href="{% static "admin/css/dashboard.css" %}">
+        <link href="{% static "admin/css/forms.css" %}">
+        <link href="{% static "admin/css/login.css" %}">
+        <link href="{% static "admin/css/nav_sidebar.css" %}">
+        <link href="{% static "admin/css/responsive_rtl.css" %}">
+        <link href="{% static "admin/css/responsive.css" %}">
+        <link href="{% static "admin/css/rtl.css" %}">
+        <link href="{% static "admin/css/widgets.css" %}">
+  
+
+        <script>
+            function myHellow() {
+                alert("Hello");
+            }
+
+            function taol() {
+                alert("mikasa");
+            }
+
+            function arminAlert() {
+                // Get the content from the h4 element
+                var eren = document.getElementById("input");
+                var mikasa = eren.textContent;
+            
+                // Alert the content
+                alert(mikasa);
+            }
+            function Alert() {
+                // Get the content from the h4 element
+                var eren = document.getElementById("input");
+                var mikasa = eren.textContent;
+            
+                // Alert the content
+                alert(mikasa);
+            }
+            
+
+        </script>
+        
+
+  </head>
+  <body>
+
+
+
+      
+
+ {%if messages%}
+ {%for mes in messages%}
+ <h4 hidden id="input">{{mes}}</h4>
+ <body onload="Alert()"></body>
+ {%endfor%}
+ {%endif%}
+ 
+  
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+ 
+    <!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> vnu_hkp@vnu.edu.vn</li>
+                            <li>Our website project for Database Module</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="https://github.com/vnu-hkp" target="_blank"><i class="fa fa-github"></i></a>
+                        </div>
+                        <div class="header__top__right__language">
+                            <img src="{% static "img/language.png" %}" alt="language flag">
+                            <div>English</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="https://translate.google.com/?hl=vi&sl=es&tl=vi&op=translate" target="_blank">Spanish</a></li>
+                                <li><a href="https://translate.google.com/?hl=vi" target="_blank">English</a></li>
+                               
+                            </ul>
+                        </div>
+                        <div class="header__top__right__auth">
+                            <a href="http://127.0.0.1:8000/admin/" target="_blank"><i class="fa fa-user"></i>Admin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo" >
+                    <a href="{%url 'homes' customer.person_id%}"><img src="{% static "img/logi.png" %}"  alt="logo"></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu" >
+                    <ul style="width: 650px">
+                        <li><a href="{%url 'homes' customer.person_id%}">Home</a></li>
+                        <li class="active"><a href="{%url 'show_all_product' customer.person_id 1%}">Shop</a></li>
+                        <li><a href="{%url 'bank' customer.person_id%}">User</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="{%url 'bank' customer.person_id%}">Back Account</a></li>
+                                <li><a href="{%url 'all_order' customer.person_id%}" >Order</a></li>
+                                <li><a href="{% url 'order_details' customer.person_id%}">Cart</a></li>
+                                <li><a href="{% url 'favorite_list' customer.person_id  %}  ">Favourite</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="http://127.0.0.1:8000/admin/">Developer</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="http://127.0.0.1:8000/admin/">Admin</a></li>
+                                <li><a href="{% url 'show_revenue' customer.person_id%}">Revenue</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'blog' customer.person_id%}">Blog</a></li>
+                        <li><a href="{%url 'contact' customer.person_id%}">Contact</a></li>
+                        
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="{% url 'favorite_list' customer.person_id  %}"><i class="fa fa-heart"></i> <span>{{fav_count}}</span></a></li>
+                        <li><a href="{% url 'order_details' customer.person_id%}" ><i class="fa fa-shopping-bag"></i> <span>{{num}}</span></a></li>
+                    </ul>
+                    <div class="header__cart__price">total: <span>{{total}} VND</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+  </header>
+  <!-- Header Section End -->
+  
+  <!-- Hero Section Begin -->
+  <section class="hero hero-normal">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        <li><a href="{%url 'show_all_product' customer.person_id 1%}">All Products</a></li>
+                        <li><a href="{%url 'products_by_category' 'Supplements' customer.person_id 1%}">Supplements</a></li>
+                        <li><a href="{%url 'products_by_category' 'Clothes' customer.person_id 1%}">Clothes</a></li>
+                        <li><a href="{%url 'products_by_category' 'Piano' customer.person_id 1%}">Accessories</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form method="POST" action = "{%url 'show_all_product' customer.person_id 1%}">
+                            <div class="hero__search__categories">
+                                All Categories
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+65 11.188.888</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  <!-- Hero Section End -->
+
+   <!-- Breadcrumb Section Begin -->
+   <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>All Products</h2>
+                    <div class="breadcrumb__option">
+                        <a href="{%url 'homes' customer.person_id%}">Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>Department</h4>
+                        <ul>
+                          <li><a href="{%url 'show_all_product' customer.person_id 1%}">All Products</a></li>
+                          <li><a href="{%url 'products_by_category' 'Supplements' customer.person_id 1%}">Supplements</a></li>
+                          <li><a href="{%url 'products_by_category' 'Clothes' customer.person_id 1%}">Clothes</a></li>
+                          <li><a href="{%url 'products_by_category' 'Accessories' customer.person_id 1%}">Accessories</a></li>
+                          
+                        </ul>
+                    </div>
+
+                    <div class="sidebar__item sidebar__item__color--option">
+                        <h4>Colors</h4>
+                        <div class="sidebar__item__color sidebar__item__color--white">
+                            <label for="white">
+                                White
+                                <input type="radio" id="white">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--gray">
+                            <label for="gray">
+                                Gray
+                                <input type="radio" id="gray">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--red">
+                            <label for="red">
+                                Red
+                                <input type="radio" id="red">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--black">
+                            <label for="black">
+                                Black
+                                <input type="radio" id="black">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--blue">
+                            <label for="blue">
+                                Blue
+                                <input type="radio" id="blue">
+                            </label>
+                        </div>
+                        <div class="sidebar__item__color sidebar__item__color--green">
+                            <label for="green">
+                                Green
+                                <input type="radio" id="green">
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar__item">
+                        <div class="latest-product__text">
+                            <h4>Latest Products</h4>
+                            <div class="latest-product__slider owl-carousel">
+                              
+                         
+                              <div class="latest-product__slider__item">
+  
+                                  {%for prod in newestProduct1st%}
+                                  <a href="{%url 'each_product' customer.person_id prod.pro_id%}" class="latest-product__item">
+                                      <div class="latest-product__item__pic">
+                                          <img src={{prod.productImage.url}} alt="">
+                                      </div>
+                                      <div class="latest-product__item__text">
+                                          <h6>{{prod.pro_name}}</h6>
+                                          
+                                          {%if prod.afterSalePrice != 0%}
+                                              <span>{{prod.afterSalePrice}} VND</span>
+                                              {%else%} 
+                                              <span>{{prod.sellPrice}} VND</span>
+                                              {%endif%}
+                                              <span style="font-size: 0.95em">{{prod.manufacturing_date}}<span>
+                                         
+                                      </div>
+                                  </a>
+                                 {%endfor%}
+                              </div>
+                     
+  
+                              <div class="latest-prdouct__slider__item">
+  
+                                  {%for prod in newestProduct2nd%}
+                                  <a href={%url 'each_product' customer.person_id prod.pro_id%} class="latest-product__item">
+                                      <div class="latest-product__item__pic">
+                                          <img src={{prod.productImage.url}} alt="">
+                                      </div>
+                                      <div class="latest-product__item__text">
+                                          <h6>{{prod.pro_name}}</h6>
+                                          
+                                          
+                                         
+                                          {%if prod.afterSalePrice != 0%}
+                                          <span>{{prod.afterSalePrice}} VND</span>
+                                          {%else%} 
+                                          <span>{{prod.sellPrice}} VND</span>
+                                          {%endif%}
+                                              <span style="font-size: 0.95em">{{prod.manufacturing_date}}<span>
+                                         
+                                      </div>
+                                      
+                                  </a>
+                                 {%endfor%}
+                              </div>
+                               
+                          </div>
+                        </div>
+                    </div>
+
+               <!--    <div class="sidebar__item">
+                        <img src="{% static "img/sidebarimg.png" %}" style="height: 400px; width: 300px">
+                        <br><br>
+
+                        <br><br>
+
+                        <br><br>
+                        <img src="{% static "img/sidebar2.jpg" %}" style="height: 400px; width: 300px">
+                    </div>
+
+                    --> 
+                    
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-9 col-md-7">
+                <div class="product__discount">
+                    <div class="section-title product__discount__title">
+                        <h2>Sale Off</h2>
+                    </div>
+                    <div class="row">
+                        <div class="product__discount__slider owl-carousel">
+                          {% for prod in onsaleProduct%}
+                            <div class="col-lg-4">
+                                <div class="product__discount__item">
+                                    <div class="product__discount__item__pic set-bg"
+                                        data-setbg={{prod.productImage.url}}>
+                                        <div class="product__discount__percent">-20%</div>
+                                        <ul class="product__item__pic__hover">
+                                            <li><a href="{% url 'add_to_favorite_from_all' customer.person_id prod.pro_id  %}"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="{%url 'each_product' customer.person_id prod.pro_id%}"><i class="fa fa-retweet"></i></a></li>
+                                            <li><a href = "{% url 'add_to_order' customer.person_id prod.pro_id %}"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="product__discount__item__text">
+                                       
+                                        <h5><a href="{%url 'each_product' customer.person_id prod.pro_id%}">{{prod.pro_name}}</a></h5>
+                                        {%if prod.afterSalePrice != 0  %}
+                              <a href="{%url 'each_product' customer.person_id prod.pro_id%}"><h6 style="font-weight: light; text-decoration: line-through;font-weight: bolder; font-style: italic; color: gray; opacity: 0.5; font-size: 0.9em">{{prod.sellPrice}} VND</h6></a>
+                                <a href="{%url 'each_product' customer.person_id prod.pro_id%}"><h5 style="color: red;font-weight: bolder; font-size: 1.2em">{{prod.afterSalePrice}} VND</h5></a>
+
+                              {%else%}
+                              <a href="{%url 'each_product' customer.person_id prod.pro_id%}"><h5 style="font-size: 1.2em; font-weight: bolder">{{prod.sellPrice}} VND</h5></a>
+                              {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor%}
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="filter__item">
+                    <div class="row" >
+                       
+                        <div class="col-lg-4 col-md-4" style="margin-left: auto; margin-right: auto">
+                            <div class="filter__found">
+                                <h6><span>{{product_count}}</span> Products found</h6>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+
+
+                
+
+
+                  
+                  {%for prod in product%} 
+                  <div class="col-lg-4 col-md-6 col-sm-6">
+                      <div class="product__item">
+                        
+                          <div class="product__item__pic set-bg" data-setbg="{{prod.productImage.url}}">
+                              <ul class="product__item__pic__hover">
+                                  <li><a href="{% url 'add_to_favorite_from_all' customer.person_id prod.pro_id  %}"><i class="fa fa-heart"></i></a></li>
+                                  <li><a href="{%url 'each_product' customer.person_id prod.pro_id%}"><i class="fa fa-retweet"></i></a></li>
+                                  <li><a href = "{% url 'add_to_order' customer.person_id prod.pro_id %}"><i class="fa fa-shopping-cart"></i></a></li>
+                              </ul>
+                          </div>
+                      
+                          <div class="product__item__text">
+                              <h6><a href="{%url 'each_product' customer.person_id prod.pro_id%}">{{prod.pro_name}}</a></h6>
+                              {%if prod.afterSalePrice != 0  %}
+                              <a href="{%url 'each_product' customer.person_id prod.pro_id%}"><h6 style="font-weight: light; text-decoration: line-through; font-style: italic; color: gray; opacity: 0.5; font-size: 0.9em">{{prod.sellPrice}} VND</h6></a>
+                                <a href="{%url 'each_product' customer.person_id prod.pro_id%}"><h5 style="color: red; font-size: 1.2em">{{prod.afterSalePrice}} VND</h5></a>
+
+                              {%else%}
+                              <a href="{%url 'each_product' customer.person_id prod.pro_id%}"><h5 style="font-size: 1.2em">{{prod.sellPrice}} VND</h5></a>
+                              {%endif%}
+                          </div>
+                      </div>
+                  </div>
+                  {%endfor%}
+                  
+
+        
+                </div>
+                {%if query == ""%}
+                <div class="product__pagination">
+                    <a href="{%url 'show_all_product' customer.person_id 1%}">1</a>
+                    <a href="{%url 'show_all_product' customer.person_id 2%}">2</a>
+                    <a href="{%url 'show_all_product' customer.person_id 3%}">3</a>
+                    <a href="{%url 'show_all_product' customer.person_id 4%}">4</a>
+                    <a href="{%url 'show_all_product' customer.person_id 5%}">5</a>
+                    <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                </div>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Section End -->
+
+        {% include 'footer.html' %}
+
+  
+
+        <script src="" async defer></script>
+
+        {% include 'scripts.html' %}
+
+        {% block scripts %}
+        {% endblock scripts%}      
+    </body>
+</html>
