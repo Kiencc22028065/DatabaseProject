@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'testing.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": 'django.db.backends.mysql',
-        "NAME": 'dbver2',
+        "NAME": 'uetsport',
         "USER": 'root',
-        "PASSWORD": 'mysql@2004',
+        "PASSWORD": '',
         "HOST": '127.0.0.1',
         "PORT": '3306',
         # 'OPTIONS' : {

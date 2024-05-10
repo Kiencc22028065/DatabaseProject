@@ -114,6 +114,7 @@ class Category(models.Model):
     def __str__(self):
         return self.cat_name
 
+from django.contrib.auth.models import User
 class Customer(models.Model):
     person_id = models.AutoField(primary_key=True)
     personName = models.CharField(max_length=50)
@@ -122,7 +123,8 @@ class Customer(models.Model):
     cusAddress = models.CharField(max_length=256)
     email = models.EmailField(blank=True)
     postCode = models.CharField(max_length=30, null=True,blank=True)
-    
+    username = models.CharField(max_length=32, default="")
+    password = models.CharField(max_length=100, default="")
 
     class Meta: 
         db_table = 'Customer'

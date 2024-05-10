@@ -97,6 +97,7 @@
                             <a href="https://github.com/vnu-hkp" target="_blank"><i class="fa fa-github"></i></a>
                         </div>
                         <div class="header__top__right__language">
+                    
                             <img src="{% static "img/language.png" %}" alt="language flag">
                             <div>English</div>
                             <span class="arrow_carrot-down"></span>
@@ -109,6 +110,9 @@
                         <div class="header__top__right__auth">
                             <a href="http://127.0.0.1:8000/admin/" target="_blank"><i class="fa fa-user"></i>Admin</a>
                         </div>
+                        <a href="{%url 'logout' %}"> 
+                            Logout
+                        </a>
                     </div>
                 </div>
             </div>

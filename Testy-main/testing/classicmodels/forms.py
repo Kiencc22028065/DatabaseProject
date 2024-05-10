@@ -14,10 +14,12 @@ class RawCustomerData(forms.ModelForm):
     cusAddress = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Address", "class":"form-control"}), label="")
     email = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Email", "class":"form-control"}), label="")
     postCode = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Postcode", "class":"form-control"}), label="")
+    username = forms.CharField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Username", "class":"form-control"}), label="")
+    password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
  		    model = Customer
- 		    fields = ['person_id', 'personName', 'phoneNumber','gender','cusAddress','email','postCode']
+ 		    fields = ['person_id', 'personName', 'phoneNumber','gender','cusAddress','email','postCode', 'username', 'password']
                      
 class Deposit(forms.ModelForm):
     balance = forms.DecimalField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Deposit", "class":"form-control"}), label="")

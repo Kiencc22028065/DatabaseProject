@@ -3,6 +3,44 @@ from django.shortcuts import render, redirect
 from .forms import * 
 from django.contrib import messages
 from .models import *
+from django.contrib.auth import authenticate, login, logout
+
+
+# form = RawCustomerData(request.POST or None)
+#     customer = None#here is the issue
+#     temp = 1
+#     product = Product.objects.all()
+#     for prod in product:
+#         prod.inFavList = False
+#         prod.save()
+#     if request.method == 'POST':
+#         if form.is_valid():
+#             saverecord = form.save()
+#             temp = saverecord.person_id 
+#             customer = Customer.objects.get(person_id = saverecord.person_id)
+#             #return render(request, 'customer.html',{'form' : form, 'customer' : customer})
+#             return redirect('homes', pk =temp)
+#     customer = Customer.objects.get(person_id = temp)
+#     return render(request, 'customer.html', {'form' : form,  'customer' : customer})
+
+def log_in(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # customer = Customer.objects.get(email = user.email)
+            return redirect('login')
+        else:
+            return redirect('login')
+    else:    
+        return render(request, 'login.html', {})
+    
+def log_out(request):
+    logout(request)
+    return redirect('login')
+
 
 def add_to_favorite_from_cat(request, category, cus_id, prod_id):  
     prod = Product.objects.get(pro_id=prod_id)
@@ -436,21 +474,36 @@ def each_order(request,cus_id, order_id):
     return render(request, 'eachOrder.html', {'fav_count' : fav_count, 'total' : total, 'num':num,'order_details' : order_details, 'order':order, 'customer':customer})
 
 
+from django.contrib.auth.models import User
+
 def add_customer(request):
     form = RawCustomerData(request.POST or None)
     customer = None#here is the issue
-    temp = 71
+    temp = 1
     product = Product.objects.all()
     for prod in product:
         prod.inFavList = False
         prod.save()
     if request.method == 'POST':
         if form.is_valid():
-            saverecord = form.save()
-            temp = saverecord.person_id 
-            customer = Customer.objects.get(person_id = saverecord.person_id)
-            #return render(request, 'customer.html',{'form' : form, 'customer' : customer})
-            return redirect('homes', pk =temp)
+            checkEmail = form.cleaned_data['email']
+            if Customer.objects.filter(email = checkEmail):
+                messages.info(request, 'This email has been registered')
+                return render(request, 'customer.html', {'form' : form,  'customer' : customer})
+            else:
+                saverecord = form.save()
+                temp = saverecord.person_id 
+                customer = Customer.objects.get(person_id = saverecord.person_id)
+                username = saverecord.username
+                email = saverecord.email
+                password = saverecord.password
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=password
+                )
+                #return render(request, 'customer.html',{'form' : form, 'customer' : customer})
+                return redirect('homes', pk =temp)
     customer = Customer.objects.get(person_id = temp)
     return render(request, 'customer.html', {'form' : form,  'customer' : customer})
         

@@ -18,6 +18,8 @@
 -->
 
  <!-- Breadcrumb Section Begin -->
+
+ 
  <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
     <div class="container">
         <div class="row">
@@ -31,6 +33,14 @@
     </div>
 </section>
 <!-- Breadcrumb Section End -->
+
+{%if messages %}
+{%for message in messages%}
+    {{message}}
+{%endfor%}
+{%endif%}
+
+<a href="{%url 'login'%}"> Login </a>
 
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
@@ -99,6 +109,14 @@
                         <div class="checkout__input">
                           <p>Personal ID<span>*</span></p>
                           <input type="text" name="person_id" placeholder="Personal ID" class="form-control" required="" id="id_person_id">
+                      </div>
+                        <div class="checkout__input">
+                          <p>Username<span>*</span></p>
+                          <input type="text" name="username" placeholder="Username" class="form-control" required="">
+                      </div>
+                        <div class="checkout__input">
+                          <p>Password<span>*</span></p>
+                          <input type="text" name="password" placeholder="Password" class="form-control" required="">
                       </div>
                         
                         

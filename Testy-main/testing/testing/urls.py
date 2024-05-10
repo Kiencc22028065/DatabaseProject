@@ -23,6 +23,9 @@ from classicmodels.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', log_in, name='login'),
+    path('logout/', log_out, name='logout'),
+    # path('register/', register,name='register'),
     path('', add_customer, name = 'add_customer'),
     path('home/<int:pk>/', homes,name='homes'),
     path('shopping/<int:pk>/<int:page>', show_all_product,name='show_all_product'),
