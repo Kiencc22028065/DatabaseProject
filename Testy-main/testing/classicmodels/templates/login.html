@@ -75,6 +75,7 @@
 {%endfor%}
 {%endif%}
 
+
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
 
@@ -83,11 +84,10 @@
         
         <div class="checkout__form" >
             <h4 style="background-color: none; text-align:center; width: 380px; margin-right: auto; margin-left: auto; ">Who are you?</h4>
-            <form method="POST"> 
-              <input type="hidden" name="csrfmiddlewaretoken" value="qEWfnyjZ7Vxpmxi5xgcbEyXXG9EdRRFZMEUHp3bGkmWoNLpxskwHY9AyFaERSc4F">
-              {% csrf_token %}
-
-  
+            <form method="POST"  action="{%url 'login'%}"> 
+            <input type="hidden" name="csrfmiddlewaretoken" value="qEWfnyjZ7Vxpmxi5xgcbEyXXG9EdRRFZMEUHp3bGkmWoNLpxskwHY9AyFaERSc4F">
+            {% csrf_token %}
+            
                 <div class="row" style=" width: 50%; margin-left:auto; margin-right: auto; position: relative; " >
                     <div class="col-lg-8 col-md-6" style="margin-left: auto; margin-right: auto;">
                         
@@ -120,7 +120,6 @@
     </div>
 </section>
 <!-- Checkout Section End -->
-
 
 <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
   <div class="container">

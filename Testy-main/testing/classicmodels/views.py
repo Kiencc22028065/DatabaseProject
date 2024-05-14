@@ -13,6 +13,7 @@ def log_in(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        print(user)
         if user is not None:
             login(request, user)
             if user.is_superuser:
@@ -31,8 +32,6 @@ def log_in(request):
     
 
 
-
-    
 def log_out(request):
     logout(request)
     return redirect('login')
@@ -40,31 +39,43 @@ def log_out(request):
 
 def add_to_favorite_from_cat(request, category, cus_id, prod_id):  
     prod = Product.objects.get(pro_id=prod_id)
-    if prod.inFavList == False:
-        prod.inFavList = True
-        prod.save()
+    customer = Customer.objects.get(person_id = cus_id)
+    favoriteList = FavoriteList.objects.get(customer = customer)
+    favoriteItem = FavoriteItem.objects.get_or_create(product = prod, favoriteList = favoriteList)
+    
     return redirect('products_by_category', category = category, cus_id = cus_id,page= 1)
 
 def add_to_favorite_from_all(request, cus_id, prod_id):
     prod = Product.objects.get(pro_id=prod_id)
-    if prod.inFavList == False:
-        prod.inFavList = True
-        prod.save()
+    customer = Customer.objects.get(person_id = cus_id)
+    favoriteList = FavoriteList.objects.get(customer = customer)
+    favoriteItem = FavoriteItem.objects.get_or_create(product = prod, favoriteList = favoriteList)
+
     return redirect('show_all_product', pk = cus_id, page  = 1)
+
+def get_fav_count(cus_id):
+    customer = Customer.objects.get(person_id = cus_id)
+    favoriteList = FavoriteList.objects.get(customer = customer)
+
+    fav_count = 0
+    for prod in FavoriteItem.objects.filter(favoriteList = favoriteList):
+        fav_count = fav_count + 1
+
+    return fav_count
 
 def favorite_list(request, cus_id):
     customer = Customer.objects.get(person_id = cus_id)
-    product = Product.objects.filter(inFavList = True)
+    favoriteList = FavoriteList.objects.get(customer = customer)
+
+    product = FavoriteItem.objects.filter(favoriteList = favoriteList)
+    print()
     existing_order = Order.objects.filter(customer=customer, paymentReceive = False).first()
     order_details = orderDetails.objects.filter(order = existing_order)
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
 
-    
     
     for item in order_details:
         if item.product.afterSalePrice == 0:
@@ -77,9 +88,11 @@ def favorite_list(request, cus_id):
     return render(request, 'favoriteList.html', {'fav_count' : fav_count,'total' : total, 'num' : num, 'customer':customer, 'product':product})
     
 def delete_from_favlist(request, cus_id, prod_id):
+    customer = Customer.objects.get(person_id = cus_id)
+    favoriteList = FavoriteList.objects.get(customer = customer)
+
     prod = Product.objects.get(pro_id=prod_id)
-    prod.inFavList = False
-    prod.save()
+    product = FavoriteItem.objects.get(product=prod, favoriteList = favoriteList).delete()
     return redirect('favorite_list', cus_id = cus_id)
 
 
@@ -109,10 +122,8 @@ def products_by_category(request, category, cus_id, page):
     total = 0
     num = 0
     
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
-
+    fav_count = get_fav_count(cus_id)
+    
     for item in order_details:
         if item.product.afterSalePrice == 0:
             total += item.amount * item.product.sellPrice
@@ -153,9 +164,7 @@ def show_all_product(request, pk, page):
     # z = 0
     product = Product.objects.all()
     product_count = product.count()  # Count the number of products
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(pk)
     for ra in product:
         ra.overallRating = ra.overall()
         ra.save()
@@ -275,9 +284,7 @@ def homes(request, pk):
     topRatedProduct2nd = Product.objects.raw("select pro_id, pro_name,productImage, sellPrice, overallRating as rated from product where overallRating != 0 order by overallRating desc limit 3 offset 3")
     allCat = Category.objects.all()
    
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(pk)
 
     for pr in newestProduct:
         pr.afterSalePrice = pr.sellPrice - pr.sellPrice * 12 / 100
@@ -378,9 +385,7 @@ def each_product(request, cus_id, prod_id):
     list = Category.objects.filter(cate_prod = prod)
 
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
 
     for rv in review:
         totalReview += 1
@@ -424,9 +429,7 @@ def show_all_order(request, pk):
     num = 0
 
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(pk)
 #    if create : 
     order_details = orderDetails.objects.filter(order = currentOrder)
     
@@ -453,9 +456,7 @@ def each_order(request,cus_id, order_id):
     num = 0
     
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
 
     for item in order_details2:
         if item.product.afterSalePrice == 0:
@@ -522,9 +523,6 @@ def add_customer(request):
     customer = None#here is the issue
     temp = 71
     product = Product.objects.all()
-    for prod in product:
-        prod.inFavList = False
-        prod.save()
     if request.method == 'POST':
         if form.is_valid():
             checkEmail = form.cleaned_data['email']
@@ -534,7 +532,7 @@ def add_customer(request):
             else:
                 saverecord = form.save()
                 temp = saverecord.person_id
-                # customer = Customer.objects.get(person_id = saverecord.person_id)
+                customer = Customer.objects.get(person_id = saverecord.person_id)
                 username = saverecord.username
                 email = saverecord.email
                 password = saverecord.password
@@ -545,6 +543,9 @@ def add_customer(request):
                 )
                 user.is_active=False
                 user.save()
+                favoriteList = FavoriteList.objects.create(
+                    customer = customer
+                )
                # send_otp(request)
                 activateEmail(request, user, email)
 
@@ -585,9 +586,7 @@ def order_details(request, cus_id):
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
     
     for item in order_details:
         if item.product.afterSalePrice == 0:
@@ -653,9 +652,7 @@ def bank(request, cus_id):
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
 
  
     
@@ -766,9 +763,7 @@ def ship(request,cus_id, prod_id):
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
     
     for item in order_details:
         if item.product.afterSalePrice == 0:
@@ -873,9 +868,7 @@ def show_revenue(request, cus_id):
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
     
     for item in order_details:
         if item.product.afterSalePrice == 0:
@@ -934,9 +927,7 @@ def contact(request, cus_id):
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
     
     for item in order_details:
         if item.product.afterSalePrice == 0:
@@ -978,9 +969,7 @@ def each_blog(request, cus_id, post_id):
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
     
     for item in order_details:
         if item.product.afterSalePrice == 0:
@@ -995,7 +984,7 @@ def each_blog(request, cus_id, post_id):
 def blog(request, cus_id):
     blog = BlogPost.objects.all()
     customer = Customer.objects.get(person_id = cus_id)
-   
+    
 
     existing_order = Order.objects.filter(customer=customer, paymentReceive = False).first()
     order_details = orderDetails.objects.filter(order = existing_order)
@@ -1007,9 +996,7 @@ def blog(request, cus_id):
     total = 0
     num = 0
 
-    fav_count = 0
-    for prod in Product.objects.filter(inFavList = True):
-        fav_count = fav_count + 1
+    fav_count = get_fav_count(cus_id)
     
     for item in order_details:
         if item.product.afterSalePrice == 0:

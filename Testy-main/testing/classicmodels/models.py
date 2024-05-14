@@ -44,10 +44,6 @@ class Product(models.Model):
     pro_info = models.TextField(default="")
     pro_weight = models.DecimalField(default=0, max_digits=2, decimal_places=1)
 
-    
-
-    inFavList = models.BooleanField(default = False)
-
 
 
     def roundy():
@@ -211,6 +207,27 @@ class orderDetails(models.Model):
     def __str__(self):
         return self.product.pro_name
 
+
+class FavoriteList(models.Model):
+    list_id = models.AutoField(primary_key=True)
+    customer = models.OneToOneField(Customer, null=True,on_delete=models.SET_NULL)
+
+    class Meta:
+        db_table =  'FavoriteList'
+
+    def __str__(self):
+        return self.customer.personName + " favorite list"
+
+class FavoriteItem(models.Model):
+    item_id = models.AutoField(primary_key=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    favoriteList = models.ForeignKey(FavoriteList, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        db_table =  'FavoriteItem'
+
+    def __str__(self):
+        return self.product.pro_name
     
 class Transaction(models.Model):
     transaction_id = models.AutoField(primary_key=True)
