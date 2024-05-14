@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', log_in, name='login'),
     path('logout/', log_out, name='logout'),
+    path('activate/<uidb64>/<token>', activate, name='activate'),
     # path('register/', register,name='register'),
     path('', add_customer, name = 'add_customer'),
     path('home/<int:pk>/', homes,name='homes'),

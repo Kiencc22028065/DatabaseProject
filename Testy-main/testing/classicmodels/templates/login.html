@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {%load static%}
 {% block content-main%}
+{% comment %} {%if messages %}
+{%for message in messages%}
+    {{message}}
+{%endfor%}
+{%endif%}
 <a href="{%url 'add_customer' %}">Register </a>
 {%if user.is_authenticated%}
   <h1>Hello</h1>
@@ -21,5 +26,114 @@
     </form>
   </form>
 
-  {%endif%}
+  {%endif%} {% endcomment %}
+
+  <style>
+    #speceliza {
+        position: relative;
+        width: 50%;
+        left: 90px;
+
+
+        
+
+    }
+
+    #speceliza:hover {
+        text-decoration: underline
+    }
+
+    #speta {
+        position: relative;
+        left: 200px;
+     
+    }
+
+    #speta:hover {
+        text-decoration: underline;
+    }
+</style>
+
+ <!-- Breadcrumb Section Begin -->
+ <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Welcome to our Shop!</h2>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+{%if messages %}
+{%for message in messages%}
+    {{message}}
+{%endfor%}
+{%endif%}
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+
+
+    <div class="container" >
+        
+        <div class="checkout__form" >
+            <h4 style="background-color: none; text-align:center; width: 380px; margin-right: auto; margin-left: auto; ">Who are you?</h4>
+            <form method="POST"> 
+              <input type="hidden" name="csrfmiddlewaretoken" value="qEWfnyjZ7Vxpmxi5xgcbEyXXG9EdRRFZMEUHp3bGkmWoNLpxskwHY9AyFaERSc4F">
+              {% csrf_token %}
+
+  
+                <div class="row" style=" width: 50%; margin-left:auto; margin-right: auto; position: relative; " >
+                    <div class="col-lg-8 col-md-6" style="margin-left: auto; margin-right: auto;">
+                        
+                        <div class="row">
+                            <div class="" >
+                                <div class="checkout__input">
+                                    <p>Username<span>*</span></p>
+                                    <input type="text" name="username" placeholder="Your username" class="form-control" required id="id_userName">
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="checkout__input">
+                                    <p>Password<span>*</span></p>
+                                    <input type="password" name="password" placeholder="Your password" class="form-control" required id="id_password">
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                    <a id="speceliza" href="{%url 'add_customer' %}">Don't have an Account?</a>
+              
+                    <button type="submit" class="site-btn" style="width: 380px; margin-left: auto; margin-right: auto">LOGIN</button>
+
+
+
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+
+
+<section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12 text-center">
+              <div class="breadcrumb__text">
+                  <h2>Enjoy your shopping!</h2>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
 {% endblock%}
+
+

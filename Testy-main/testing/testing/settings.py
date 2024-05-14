@@ -83,7 +83,7 @@ DATABASES = {
         "ENGINE": 'django.db.backends.mysql',
         "NAME": 'uetsport',
         "USER": 'root',
-        "PASSWORD": '',
+        "PASSWORD": 'saber1108',
         "HOST": '127.0.0.1',
         "PORT": '3306',
         # 'OPTIONS' : {
@@ -146,3 +146,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_FROM = 'hoangminhphuc1108@gmail.com'
+EMAIL_HOST_USER = 'hoangminhphuc1108@gmail.com'
+EMAIL_HOST_PASSWORD = 'wlkzwrwfbeuggoop'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+PASSWORD_RESET_TIMEOUT = 14400
+
+
+#OTP SETTINGS
+TWILIO_ACCOUNT_SID = 'ACa743629cf5b3104abdddd1d4e828fe7e' 
+TWILIO_AUTH_TOKEN = '9ebf4c99543e37bf05d58331bbdcd10f'
+TWILIO_PHONE_NUMBER = '+19413675256'

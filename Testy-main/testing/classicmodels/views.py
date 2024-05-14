@@ -6,22 +6,7 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 
 
-# form = RawCustomerData(request.POST or None)
-#     customer = None#here is the issue
-#     temp = 1
-#     product = Product.objects.all()
-#     for prod in product:
-#         prod.inFavList = False
-#         prod.save()
-#     if request.method == 'POST':
-#         if form.is_valid():
-#             saverecord = form.save()
-#             temp = saverecord.person_id 
-#             customer = Customer.objects.get(person_id = saverecord.person_id)
-#             #return render(request, 'customer.html',{'form' : form, 'customer' : customer})
-#             return redirect('homes', pk =temp)
-#     customer = Customer.objects.get(person_id = temp)
-#     return render(request, 'customer.html', {'form' : form,  'customer' : customer})
+
 
 def log_in(request):
     if request.method == 'POST':
@@ -30,12 +15,23 @@ def log_in(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            # customer = Customer.objects.get(email = user.email)
-            return redirect('login')
+            if user.is_superuser:
+                return redirect('/admin')
+            else:
+                customer = Customer.objects.get(email = user.email)
+                
+                # customer = Customer.objects.get(email = user.email)
+                
+                return redirect('homes', pk = customer.person_id)
         else:
+            messages.error(request, "User not found !!!!!!")
             return redirect('login')
     else:    
         return render(request, 'login.html', {})
+    
+
+
+
     
 def log_out(request):
     logout(request)
@@ -475,11 +471,56 @@ def each_order(request,cus_id, order_id):
 
 
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.core.mail import EmailMessage
+from .tokens import account_activation_token
+
+
+def activate(request, uidb64, token):
+    User = get_user_model()
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except:
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, "Thank you for your email confirmation. Now you can login your account.")
+        return redirect('login')
+    else:
+        messages.error(request, "Activation link is invalid!")
+
+    return redirect('add_customer')
+
+def activateEmail(request, user, to_email):
+    mail_subject = "Activate your user account."
+    message = render_to_string("template_activate_account.html", {
+        'user': user.username,
+        'domain': get_current_site(request).domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user),
+        "protocol": 'https' if request.is_secure() else 'http'
+    })
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    if email.send():
+        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
+                received activation link to confirm and complete the registration. <b>Note:</b> Check your spam folder.')
+    else:
+        messages.error(request, f'Problem sending email to {to_email}, check if you typed it correctly.')
+
+
+
 
 def add_customer(request):
     form = RawCustomerData(request.POST or None)
     customer = None#here is the issue
-    temp = 1
+    temp = 71
     product = Product.objects.all()
     for prod in product:
         prod.inFavList = False
@@ -492,8 +533,8 @@ def add_customer(request):
                 return render(request, 'customer.html', {'form' : form,  'customer' : customer})
             else:
                 saverecord = form.save()
-                temp = saverecord.person_id 
-                customer = Customer.objects.get(person_id = saverecord.person_id)
+                temp = saverecord.person_id
+                # customer = Customer.objects.get(person_id = saverecord.person_id)
                 username = saverecord.username
                 email = saverecord.email
                 password = saverecord.password
@@ -502,8 +543,13 @@ def add_customer(request):
                     email=email,
                     password=password
                 )
+                user.is_active=False
+                user.save()
+               # send_otp(request)
+                activateEmail(request, user, email)
+
                 #return render(request, 'customer.html',{'form' : form, 'customer' : customer})
-                return redirect('homes', pk =temp)
+                return redirect('login')
     customer = Customer.objects.get(person_id = temp)
     return render(request, 'customer.html', {'form' : form,  'customer' : customer})
         
@@ -561,6 +607,41 @@ def order_details(request, cus_id):
         'fav_count': fav_count
     }
     return render(request, 'order_summary.html', context)
+
+
+from django.conf import settings
+from twilio.rest import Client
+
+def send_otp_via_sms(recipient_number, otp):
+    client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+
+    message_body = f"Your OTP is: {otp}"
+    
+    try:
+        message = client.messages.create(
+            body=message_body,
+            from_=settings.TWILIO_PHONE_NUMBER,
+            to=recipient_number
+        )
+        return True
+    except Exception as e:
+        print(e)
+        return False
+    
+def send_otp(request):
+    if request.method == 'POST':
+        # recipient_number = request.POST.get('recipient_number')
+
+        # otp = generate_otp()
+        if send_otp_via_sms('+84375812092', "123456"):
+            print(1)
+            # request.session['otp'] = otp
+            return redirect("add_customer")
+        else:
+            return redirect("add_customer")
+
+
+
 
 def bank(request, cus_id):
     customer = Customer.objects.get(person_id=cus_id)

@@ -21,6 +21,25 @@ class RawCustomerData(forms.ModelForm):
  		    model = Customer
  		    fields = ['person_id', 'personName', 'phoneNumber','gender','cusAddress','email','postCode', 'username', 'password']
                      
+# from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth import get_user_model
+
+
+# class userRegistrationForm(UserCreationForm):
+#     email = forms.EmailField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Email", "class":"form-control"}), label="")
+
+#     class Meta:
+#             model = get_user_model()
+#             fields = ['username', 'email', 'password1', 'password2']
+
+#     def save(self, commit=True):
+#         user = super(userRegistrationForm, self).save(commit=False)
+#         user.email = self.cleaned_data['email']
+#         if commit:
+#             user.save()
+
+#         return user
+
 class Deposit(forms.ModelForm):
     balance = forms.DecimalField(required=True, widget=forms.widgets.TextInput(attrs={"placeholder":"Deposit", "class":"form-control"}), label="")
 

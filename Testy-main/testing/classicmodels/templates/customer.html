@@ -106,9 +106,9 @@
                             <input type="text" name="postCode" placeholder="Postcode" class="form-control" required="" id="id_postCode">
                         </div>
 
-                        <div class="checkout__input">
+                        <div class="checkout__input" style="display:none">
                           <p>Personal ID<span>*</span></p>
-                          <input type="text" name="person_id" placeholder="Personal ID" class="form-control" required="" id="id_person_id">
+                          <input type="text" name="person_id" value="10000" placeholder="Personal ID" class="form-control" required="" id="id_person_id">
                       </div>
                         <div class="checkout__input">
                           <p>Username<span>*</span></p>
@@ -116,8 +116,12 @@
                       </div>
                         <div class="checkout__input">
                           <p>Password<span>*</span></p>
-                          <input type="text" name="password" placeholder="Password" class="form-control" required="">
+                          <input type="text" name="password" placeholder="Password" class="form-control" required="" id="id_password">
                       </div>
+                        {% comment %} <div class="checkout__input">
+                          <p>Confirm your Password<span>*</span></p>
+                          <input type="text" name="password" placeholder="Password" class="form-control" required="" id="id_confirm_password">
+                      </div> {% endcomment %}
                         
                         
                         
@@ -146,6 +150,7 @@
       </div>
   </div>
 </section>
+
 {% endblock%}
 
 
