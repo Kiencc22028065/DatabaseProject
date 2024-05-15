@@ -608,37 +608,66 @@ def order_details(request, cus_id):
     return render(request, 'order_summary.html', context)
 
 
-from django.conf import settings
-from twilio.rest import Client
+import pyotp
+def generate_otp():
+    totp = pyotp.TOTP(pyotp.random_base32(), digits = 4, interval = 900)
+    return totp.now()
 
-def send_otp_via_sms(recipient_number, otp):
-    client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+def verify_otp(otp_input, otp_generated):
+    return otp_generated == otp_input
 
-    message_body = f"Your OTP is: {otp}"
-    
-    try:
-        message = client.messages.create(
-            body=message_body,
-            from_=settings.TWILIO_PHONE_NUMBER,
-            to=recipient_number
-        )
-        return True
-    except Exception as e:
-        print(e)
-        return False
-    
-def send_otp(request):
+def sendOTP(request, user, to_email):
+    mail_subject = "Deposit Confirmation: Your OTP Code."
+    otp = generate_otp()
+    message = render_to_string("template_activate_deposit.html", {
+        'user': user,
+        'otp': otp
+
+    })
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    if email.send():
+        messages.success(request, f'Dear <b>{user}</b>, please go to you email <b>{to_email}</b> inbox and click on \
+                received activation link to receive your OTP and verify in order to deposit. <b>Note:</b> Check your spam folder.')
+        request.session['otp'] = otp
+    else:
+        messages.error(request, f'Problem sending email to {to_email}, check if this email is really yours.')
+
+import base64
+
+
+#Để encode và decode số tiền cần deposit
+def encode_id(cus_id):
+    cus_id_bytes = str(cus_id).encode('utf-8')
+    base64_bytes = base64.urlsafe_b64encode(cus_id_bytes)
+    encoded_cus_id = base64_bytes.decode('utf-8')
+    return encoded_cus_id
+
+def decode_id(encoded_cus_id):
+    base64_bytes = encoded_cus_id.encode('utf-8')
+    cus_id_bytes = base64.urlsafe_b64decode(base64_bytes)
+    cus_id = int(cus_id_bytes.decode('utf-8'))
+    return cus_id
+
+def verify_deposit(request, cus_id, money):
+    customer = Customer.objects.get(person_id = cus_id)
+    newbalance = credit.objects.filter(owner=customer).first()
+    money_deposit = decode_id(money)
     if request.method == 'POST':
-        # recipient_number = request.POST.get('recipient_number')
-
-        # otp = generate_otp()
-        if send_otp_via_sms('+84375812092', "123456"):
-            print(1)
-            # request.session['otp'] = otp
-            return redirect("add_customer")
-        else:
-            return redirect("add_customer")
-
+        otp_input = request.POST['otp']
+        if 'otp' in request.session:
+            otp_generated = request.session['otp']
+            if verify_otp(otp_input, otp_generated):
+                messages.success(request, 'Validation successfully!!!')
+                newbalance.balance += money_deposit
+                newbalance.save()
+                return redirect('bank', cus_id = cus_id)
+            else:
+                messages.error(request, 'OTP does not match. Check your email')
+                return redirect('verify_deposit', cus_id = cus_id, money = money)
+        else:   
+            messages.error(request, 'OTP code has expired. Try to send back new OTP to validate')
+            return redirect('otp_deposit.html', cus_id = cus_id)
+    return render(request, 'otp_deposit.html', {'customer':customer, 'money_deposit' : money})
 
 
 
@@ -675,14 +704,17 @@ def bank(request, cus_id):
     
     if request.method == 'POST':
         if form.is_valid():
+            
             saverec = form.save(commit=False)  # Không lưu ngay vào cơ sở dữ liệu
             #newbalance = credit.objects.filter(owner=customer).first()
             if not newbalance:
                 newbalance = credit(creditNumber = saverec.creditNumber, owner=customer, balance=saverec.balance)
                 newbalance.save()
             else:
-                newbalance.balance += saverec.balance
-                newbalance.save()
+                sendOTP(request, customer.personName, customer.email)
+                return redirect('verify_deposit', cus_id = cus_id, money = encode_id(saverec.balance))
+                # newbalance.balance += saverec.balance
+                # newbalance.save()
                 
             
             return redirect('bank', cus_id=cus_id)

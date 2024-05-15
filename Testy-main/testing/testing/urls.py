@@ -44,6 +44,7 @@ urlpatterns = [
 
 
     path('bank/<int:cus_id>/', bank, name = 'bank'),
+    path('bank/verify/<int:cus_id>/<str:money>', verify_deposit, name="verify_deposit"),
 
     path('shopping/<str:category>/<int:cus_id>/<int:page>', products_by_category, name='products_by_category'),
 

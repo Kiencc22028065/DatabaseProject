@@ -1,0 +1,14 @@
+
+
+<h1> HELLO </h1>
+{% if messages %} {% for messages in messages%}
+<h4>{{messages}}</h4>
+{% endfor %} {% endif %}
+
+{{money_deposit}}
+
+<form method="POST" action="{%url 'verify_deposit' customer.person_id money_deposit%}"> 
+  {% csrf_token %}
+  <input type="text" name="otp" placeholder="otp">
+  <button type="submit">Confirm</button>
+</form>
