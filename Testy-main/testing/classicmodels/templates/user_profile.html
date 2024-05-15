@@ -1,0 +1,87 @@
+<head>
+  <script>
+      function showEditForm(fieldName) {
+          // Ẩn tất cả các form chỉnh sửa
+          var editForms = document.querySelectorAll('.edit-form');
+          editForms.forEach(function(form) {
+              form.style.display = 'none';
+          });
+
+          // Hiển thị form chỉnh sửa cho trường tương ứng
+          var editForm = document.getElementById('edit-form-' + fieldName);
+          editForm.style.display = 'block';
+      }
+  </script>
+</head>
+<body>
+{% if messages %} {% for messages in messages%}
+<h4>{{messages}}</h4>
+{% endfor %} {% endif %}
+
+    <h1>User Information</h1>
+    <ul>
+        <li><strong>Person ID:</strong> {{ customer.person_id }}</li>
+        <li><strong>Name:</strong> {{ customer.personName }}</li>
+        <li><strong>Phone Number:</strong> {{ customer.phoneNumber }}</li>
+        <li><strong>Gender:</strong> {{ customer.gender }}</li>
+        <li><strong>Address:</strong> {{ customer.cusAddress }}</li>
+        <li><strong>Email:</strong> {{ customer.email }}</li>
+        <li><strong>Post Code:</strong> {{ customer.postCode }}</li>
+    </ul>
+
+  
+      <h1>Edit Customer Information</h1>
+      <button onclick="showEditForm('personName')">Edit Name</button>
+      <button onclick="showEditForm('phoneNumber')">Edit Phone Number</button>
+      <button onclick="showEditForm('cusAddress')">Edit Address</button>
+      <button onclick="showEditForm('email')">Edit Email</button>
+      <button onclick="showEditForm('postCode')">Edit PostCode</button>
+      <button onclick="showEditForm('password')">Edit Password</button>
+      <!-- Thêm các nút chỉnh sửa khác tùy theo yêu cầu -->
+  
+      <!-- Form chỉnh sửa một trường -->
+      <form method="POST" id="edit-form-personName" class="edit-form" style="display: none;">
+          {% csrf_token %}
+          <input type="text" name="personName" value="{{ customer.personName }}">
+          <button type="submit">Save</button>
+      </form>
+  
+      <form method="POST" id="edit-form-phoneNumber" class="edit-form" style="display: none;">
+          {% csrf_token %}
+          <input type="text" name="phoneNumber" value="{{ customer.phoneNumber }}">
+          <button type="submit">Save</button>
+      </form>
+  
+      <form method="POST" id="edit-form-cusAddress" class="edit-form" style="display: none;">
+          {% csrf_token %}
+          <input type="text" name="cusAddress" value="{{ customer.cusAddress }}">
+          <button type="submit">Save</button>
+      </form>
+      <form method="POST" id="edit-form-email" class="edit-form" style="display: none;">
+          {% csrf_token %}
+          <input type="text" name="email" value="{{ customer.email }}">
+          <button type="submit">Save</button>
+      </form>
+      <form method="POST" id="edit-form-postCode" class="edit-form" style="display: none;">
+          {% csrf_token %}
+          <input type="text" name="postCode" value="{{ customer.postCode }}">
+          <button type="submit">Save</button>
+      </form>
+      <form method="POST" id="edit-form-password" class="edit-form" style="display: none;"> 
+        {% csrf_token %}
+        <input type="text" name="old_password" placeholder="Old password">
+        <input type="text" name="changed_password" placeholder="Changed password">
+        <input type="text" name="confirm_changed_password" placeholder="Confirm password">
+        <button type="submit">Confirm</button>
+      </form>
+      
+      <!-- Thêm các form chỉnh sửa khác tùy theo yêu cầu -->
+  </body> 
+
+    {% comment %} <form method="POST"> 
+      {% csrf_token %}
+      <input type="text" name="old_password" placeholder="Old password">
+      <input type="text" name="changed_password" placeholder="Changed password">
+      <input type="text" name="confirm_changed_password" placeholder="Confirm password">
+      <button type="submit">Confirm</button>
+    </form> {% endcomment %}

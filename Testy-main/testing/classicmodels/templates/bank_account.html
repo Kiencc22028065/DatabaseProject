@@ -79,6 +79,8 @@
             }
             
 
+
+
         </script>
         
 
@@ -229,55 +231,54 @@
   </section>
   <!-- Hero Section End -->
 
-  
-     <!-- Breadcrumb Section Begin -->
-     <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-12 text-center">
-                  <div class="breadcrumb__text">
-                      <h2>Credit</h2>
-                      <div class="breadcrumb__option">
-                          <a href="{%url 'homes' customer.person_id%}">Home</a>
-                          <span>Bank Account</span>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+  <!-- Breadcrumb Section Begin -->
+  <section class="breadcrumb-section set-bg" data-setbg="{% static "img/breadcrumb.JPG" %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Credit</h2>
+                    <div class="breadcrumb__option">
+                        <a href="{%url 'homes' customer.person_id%}">Home</a>
+                        <span>Bank Account</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% if messages %} {% for messages in messages%}
+<h4>{{messages}}</h4>
+{% endfor %} {% endif %}
 
 <!--
-  <div style="width: 50px; height: 30px; border-radius: 30px 30px 0px 0px; margin-left:auto; margin-right: auto; background-color: green; margin-top: 50px"></div>
-  <div style="width: 150px; height: 30px; border-radius: 30px 30px 0px 0px; margin-left:auto; margin-right: auto; background-color: green; "></div>
- 
-  <div style="width: 250px; height: 30px; border-radius: 30px 30px 0px 0px; margin-left:auto; margin-right: auto; background-color: green;"></div>    #4e229a-->
+    <div style="width: 50px; height: 30px; border-radius: 30px 30px 0px 0px; margin-left:auto; margin-right: auto; background-color: green; margin-top: 50px"></div>
+    <div style="width: 150px; height: 30px; border-radius: 30px 30px 0px 0px; margin-left:auto; margin-right: auto; background-color: green; "></div>
+    
+    <div style="width: 250px; height: 30px; border-radius: 30px 30px 0px 0px; margin-left:auto; margin-right: auto; background-color: green;"></div>    #4e229a-->
  <br><br><br>
-  <div class = "container" style="margin: auto; width: 50%; border: 30px solid green; border-radius: 60px; padding: 40px; background-color: rgb(190, 190, 146, 0.3);background-image: {% static "img/breadcrumb.jpg" %} ">
-
+ <div class = "container" style="margin: auto; width: 50%; border: 30px solid green; border-radius: 60px; padding: 40px; background-color: rgb(190, 190, 146, 0.3);background-image: {% static "img/breadcrumb.jpg" %} ">
+    
     {%if newbalance%}
     <div style="width: 500px; margin-left: auto; margin-right: auto; text-align:center;color: rgb(32, 18, 57) ">
-    <h2 style="font-weight: bolder; text-align:center;"> Your current balance: </h3>
-      
+        <h2 style="font-weight: bolder; text-align:center;"> Your current balance: </h3>
+            
     </div>
     <div style="background-color: white; margin-top: 20px; margin-bottom: 10px; padding-top: 10px; padding-bottom: 10px; 
     border: 6px solid tomato; border-radius: 10px; width: 400px; margin-left: auto; 
     margin-right: auto; text-align: center; color: #9bad39; letter-spacing: 1.5px "><h4>{{newbalance.balance}} VND</h4></div>
     {%endif%}
-    </br>
+</br>
 
-    <div style="width: 400px; margin-left: auto; margin-right: auto; text-align: center">
+<div style="width: 400px; margin-left: auto; margin-right: auto; text-align: center">
     <form method="POST" action = "{%url 'bank' customer.person_id%}"> 
         <!--GET là để lấy thông tin, POST là để lưu thông tin-->
         {% csrf_token %}
-
+        
         {{form.as_p}}
     </br>
-        <button type="submit" class="btn btn-secondary" style="margin-right: 100px">Confirm</button>
-        <a href="{% url 'show_all_product' customer.person_id 1%}"  class="btn btn-warning" >Back</a>
-        {% if messages %} {% for messages in messages%}
-            <h4>{{messages}}</h4>
-            {% endfor %} {% endif %}
+    <button type="submit" class="btn btn-secondary" style="margin-right: 100px">Confirm</button>
+    <a href="{% url 'show_all_product' customer.person_id 1%}"  class="btn btn-warning" >Back</a>
     </form>
   </div>
 

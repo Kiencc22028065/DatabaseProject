@@ -44,6 +44,7 @@ urlpatterns = [
 
 
     path('bank/<int:cus_id>/', bank, name = 'bank'),
+    path('bank/verify/<int:cus_id>/<str:money>', verify_deposit, name="verify_deposit"),
 
     path('shopping/<str:category>/<int:cus_id>/<int:page>', products_by_category, name='products_by_category'),
 
@@ -62,7 +63,10 @@ urlpatterns = [
 
 
     path('contact/<int:cus_id>', contact, name = 'contact'),
+
+    path('user/<int:cus_id>', edit_user, name="edit_user"),
     
     path('blog/cat/<int:cus_id>/<str:tag_name>', blog_by_tag, name = 'blog_by_tag')
     #path('shopping/search/<int:pk>/', search, name = 'search_bar')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
