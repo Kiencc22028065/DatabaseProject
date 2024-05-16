@@ -1,0 +1,7 @@
+{%for bl in blog%}
+  {{bl.header}}
+  <a href="{% url 'approve_blog' bl.postID%}" target="_blank">Detail </a>
+  <a href="{% url 'approve' bl.postID%}">Approve </a>
+  <a href="{% url 'remove' bl.postID%}">Delete </a>
+</br>
+{%endfor%}

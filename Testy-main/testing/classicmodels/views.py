@@ -1017,7 +1017,7 @@ def each_blog(request, cus_id, post_id):
     return render(request, 'each_blog.html', {'other_blog' : other_blog,'customer' : customer, 'blog' : blog, 'html_content': html_content, 'total' : total, 'num' : num, 'fav_count' : fav_count})
 
 def blog(request, cus_id):
-    blog = BlogPost.objects.all()
+    blog = BlogPost.objects.filter(accepted = True)
     customer = Customer.objects.get(person_id = cus_id)
     
 
@@ -1046,17 +1046,13 @@ def blog(request, cus_id):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             newBlog = BlogPost.objects.create()
-            #uploaded_file = request.FILES['docfile']
             
             newBlog.header = request.POST['header']
             # Xử lý file tải lên
             newBlog.titleImage = form.cleaned_data['titlePhoto']
             newBlog.file = request.FILES['docfile']
             newBlog.author = request.POST['author']
-            
-            #newBlog.content = convert_docx_to_html(uploaded_file)
             newBlog.save()
-            #html_content = convert_docx_to_html(str(uploaded_file))
             return redirect('blog', cus_id = cus_id)
     else:
         form = DocumentForm()
@@ -1113,22 +1109,28 @@ def edit_user(request, cus_id):
                 return redirect('edit_user', cus_id = cus_id)
         return redirect('edit_user', cus_id = cus_id)
         
-        # old_password = request.POST['old_password']
-        # if customer.password == old_password:
-        #     new_password = request.POST['changed_password']
-        #     confirm_password = request.POST['confirm_changed_password']
-        #     if new_password == confirm_password:
-        #         Customer.objects.filter(person_id = cus_id).update(password = new_password)
-        #         user = User.objects.get(email = customer.email)
-        #         hashed_password = make_password(new_password)
-        #         user.password = hashed_password
-        #         user.save()
-                
-        #     else:
-        #         messages.error(request, "Password in 2 fields are different")
-        #         return redirect('edit_user', cus_id = cus_id)
-        # else:
-        #     messages.error(request, "Password incorrect")
-        #     return redirect('edit_user', cus_id = cus_id)
 
     return render(request, 'user_profile.html', {'customer' : customer, 'user': user})
+
+
+def administrator(request):
+    blog = BlogPost.objects.filter(accepted = False)
+
+    return render(request, 'admin.html', {'blog' : blog})
+
+def remove(request, blog_id):
+    blog = BlogPost.objects.filter(postID = blog_id).delete()
+
+    return redirect('administrator')
+
+def approve(request, blog_id):
+    blog = BlogPost.objects.get(postID = blog_id)
+    blog.accepted = True
+    blog.save()
+    return redirect('administrator')
+
+def approve_blog(request, blog_id):
+    blog = BlogPost.objects.get(postID = blog_id)
+    html_content = convert_docx_to_html(str(blog.file))
+
+    return render(request, 'approve_blog.html', {'html_content' : html_content})

@@ -308,6 +308,7 @@ class BlogPost(models.Model):
     author = models.CharField(max_length=80)
     written_at = models.DateField(auto_now_add=True)
     tag = models.ForeignKey(BlogTag,null=True, on_delete=models.SET_NULL)
+    accepted = models.BooleanField(default=False)
 
     class Meta:
         db_table =  'Blog'

@@ -64,6 +64,11 @@ urlpatterns = [
 
     path('contact/<int:cus_id>', contact, name = 'contact'),
 
+    path('administrator/', administrator, name="administrator"),
+    path('approve/<int:blog_id>', approve_blog, name="approve_blog"),
+    path('administrator/approve/<int:blog_id>', approve, name="approve"),
+    path('administrator/remove/<int:blog_id>', remove, name="remove"),
+
     path('user/<int:cus_id>', edit_user, name="edit_user"),
     
     path('blog/cat/<int:cus_id>/<str:tag_name>', blog_by_tag, name = 'blog_by_tag')
